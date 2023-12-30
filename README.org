@@ -1,67 +1,20 @@
-This repository is a template for the pattern of libraries that
-emerged in Atlas Engineer (see [[https://github.com/atlas-engineer/nkeymaps][nkeymaps]], [[https://github.com/atlas-engineer/ndebug][ndebug]], [[https://github.com/atlas-engineer/nfiles][nfiles]] for
-manifestations of this pattern). It saves some hour of repository set
-up and is as easy to use as
+This is a Quickproject template for my projects. Mostly a fork of
+Atlas Engineer's abandoned ntemplate. It saves some hour of repository
+set up and is as easy to use as
 
 #+begin_src lisp
   ;; In your REPL.
   (ql:quickload :quickproject)
   ;; IMPORTANT: Delete the .git directory to not break Quickproject copying.
   ;; FIXME: Make Quickproject ignore the .git directory.
-  (delete-directory #p"/path/to/ntemplate/.git/" :recursive t)
+  (delete-directory #p"/path/to/quickproject-template/.git/" :recursive t)
   ;; Finally, create the project based on a template.
   (quickproject:make-project
    #p"/path/to/your/lib/"
-   :template-directory #p"/path/to/ntemplate/"
-   :author "Atlas Engineer LLC"
-   :license "BSD-3 Clause")
+   :template-directory #p"/path/to/quickproject-template/"
+   :author "Artyom Bologov"
+   :license "BSD-2 Clause")
 #+end_src
-
-To add submodules to the repository, you can leverage the Guix definition.  This
-only works for packages using a git-reference as source:
-
-#+begin_src lisp
-  (mapcar #'asdf:load-system '(:alexandria :serapeum :ospm :log4cl))
-  (defvar *git-program* "git")
-
-  (flet ((fetch-git-modules (local-repository &rest packages)
-           "LOCAL-REPOSITORY is the path to the Git repository where to add the submodules.
-  PACKAGES are the Guix packages corresponding to the submodules to fetch.
-
-  Return 2 values:
-  - the list of inputs with a Git reference;
-  - the list of inputs without a Git reference; you will have to add these submodules manually."
-           (labels ((repo-url-name (url)
-                      (let ((pos (search "/" url :from-end t :end2 (1- (length url)))))
-                        (serapeum:string-replace-all "/" (subseq url pos) "")))
-                    (sbcl-recursive-inputs (pkg)
-                      (let ((pkgs (mapcar (alexandria:compose #'first #'ospm:find-os-packages)
-                                          (remove-if-not (lambda (input) (serapeum:string-prefix-p "sbcl-" input))
-                                                         (ospm:inputs pkg)))))
-                        (cons pkg
-                              (alexandria:mappend #'sbcl-recursive-inputs pkgs)))))
-             (multiple-value-bind (git-inputs non-git-inputs)
-                 (serapeum:partition (alexandria:compose #'ospm::guix-package-source-git-reference-p #'ospm:source)
-                                     (delete-duplicates (alexandria:mappend
-                                                         (lambda (pkg-name)
-                                                           (sbcl-recursive-inputs (first (or (ospm:find-os-packages pkg-name)
-                                                                                             (error "Package ~a not found" pkg-name)))))
-                                                         packages)))
-               (mapc (lambda (url)
-                       (let ((target (uiop:strcat "_build/" (repo-url-name url))))
-                         (uiop:with-current-directory (local-repository)
-                           (if (uiop:directory-exists-p target)
-                               (log:info "~s already exists" target)
-                               (let ((cmd `(,*git-program* "submodule" "add" ,url ,target)))
-                                 (format t "~&~{~a~,^ ~}~&" cmd)
-                                 (uiop:run-program cmd
-                                                   :output t
-                                                   :error-output t))))))
-                     (mapcar (alexandria:compose #'ospm:url #'ospm:source) (delete-duplicates git-inputs)))
-               (values git-inputs non-git-inputs)))))
-    (fetch-git-modules "/path/to/repository/checkout" "sbcl-lisp-unit2" "sbcl-MY-OTHER-LIB" "..."))
-#+end_src
-
 
 And then go on with doing the actual work, testing, and documentation ;)
 
@@ -74,7 +27,7 @@ And then go on with doing the actual work, testing, and documentation ;)
 * Getting Started
 Clone the Git repository:
 #+begin_src sh
-  git clone --recursive https://github.com/atlas-engineer/(#| TMPL_VAR name |#) ~/common-lisp/
+  git clone --recursive https://github.com/aartaka/(#| TMPL_VAR name |#) ~/common-lisp/
 #+end_src
 
 And then load ~:(#| TMPL_VAR name |#)~ in the REPL:
@@ -89,8 +42,3 @@ And then load ~:(#| TMPL_VAR name |#)~ in the REPL:
 #+begin_src lisp
   ;; Basic example here, see more in package.lisp.
 #+end_src
-
-* How it works
-
-* Roadmap
-- [ ]

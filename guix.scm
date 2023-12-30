@@ -37,7 +37,7 @@
     ;; (origin
     ;;   (method git-fetch)
     ;;   (uri (git-reference
-    ;;         (url "https://github.com/atlas-engineer/(#| TMPL_VAR name |#)")
+    ;;         (url "https://github.com/aartaka/(#| TMPL_VAR name |#)")
     ;;         (commit version)))
     ;;   (file-name (git-file-name "cl-(#| TMPL_VAR name |#)" version))
     ;;   (sha256
@@ -56,7 +56,7 @@
    (native-inputs (list cl-lisp-unit2 sbcl))
    (inputs SPECIFY-INPUTS)
    (synopsis "ADD A SYNOPSYS.")
-   (home-page "https://github.com/atlas-engineer/(#| TMPL_VAR name |#)")
+   (home-page "https://github.com/aartaka/(#| TMPL_VAR name |#)")
    (description "ADD A DESCRIPTION")
    (license license:bsd-3)))
 

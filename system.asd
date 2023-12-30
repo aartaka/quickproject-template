@@ -14,25 +14,17 @@
   :pathname "source/"
   :components ((:file "package")
                (:file "(#| TMPL_VAR name |#)"))
-  :in-order-to ((test-op (test-op "(#| TMPL_VAR name |#)/tests")
-                         (test-op "(#| TMPL_VAR name |#)/tests/compilation"))))
-
-(defsystem "(#| TMPL_VAR name |#)/submodules"
-  :defsystem-depends-on ("nasdf")
-  :class :nasdf-submodule-system)
+  :in-order-to ((test-op (test-op "(#| TMPL_VAR name |#)/tests"))))
 
 (defsystem "(#| TMPL_VAR name |#)/tests"
-  :defsystem-depends-on ("nasdf")
-  :class :nasdf-test-system
   :depends-on ("(#| TMPL_VAR name |#)")
   :targets (:package :(#| TMPL_VAR name |#)/tests)
   :serial t
   :pathname "tests/"
   :components ((:file "package")
-               (:file "tests")))
-
-(defsystem "(#| TMPL_VAR name |#)/tests/compilation"
-  :defsystem-depends-on ("nasdf")
-  :class :nasdf-compilation-test-system
-  :depends-on ("(#| TMPL_VAR name |#)")
-  :packages (:(#| TMPL_VAR name |#)))
+               (:file "tests"))
+  :perform (test-op (op c)
+                    (eval-input
+                     "(lisp-unit2:run-tests
+                       :package :(#| TMPL_VAR name |#)/tests
+                       :run-contexts #'lisp-unit2:with-summary-context)")))
