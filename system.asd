@@ -18,7 +18,6 @@
 
 (defsystem "(#| TMPL_VAR name |#)/tests"
   :depends-on ("(#| TMPL_VAR name |#)")
-  :targets (:package :(#| TMPL_VAR name |#)/tests)
   :serial t
   :pathname "tests/"
   :components ((:file "package")
