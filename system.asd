@@ -1,6 +1,8 @@
 ;;;; SPDX-FileCopyrightText: (#| TMPL_VAR author |#)
 ;;;; SPDX-License-Identifier: (#| TMPL_VAR license |#)
 
+(in-package :asdf)
+
 (defsystem "(#| TMPL_VAR name |#)"
   :description "Describe (#| TMPL_VAR name |#) here"
   :author "(#| TMPL_VAR author |#)"
