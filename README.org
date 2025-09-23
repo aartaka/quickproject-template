@@ -27,7 +27,7 @@ And then go on with doing the actual work, testing, and documentation ;)
 ** Getting Started
 Clone the Git repository:
 #+begin_src sh
-  git clone --recursive https://github.com/aartaka/(#| TMPL_VAR name |#) ~/common-lisp/
+  git clone --recursive https://codeberg.org/aartaka/(#| TMPL_VAR name |#) ~/common-lisp/
 #+end_src
 
 And then load ~:(#| TMPL_VAR name |#)~ in the REPL:
