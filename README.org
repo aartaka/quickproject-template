@@ -18,13 +18,13 @@ set up and is as easy to use as
 
 And then go on with doing the actual work, testing, and documentation ;)
 
-#+TITLE:(#| TMPL_VAR name |#)
+* (#| TMPL_VAR name |#)
 
 *What (#| TMPL_VAR name |#) is.*
 
 (#| TMPL_VAR name |#) does...
 
-* Getting Started
+** Getting Started
 Clone the Git repository:
 #+begin_src sh
   git clone --recursive https://github.com/aartaka/(#| TMPL_VAR name |#) ~/common-lisp/
@@ -37,7 +37,7 @@ And then load ~:(#| TMPL_VAR name |#)~ in the REPL:
   (ql:quickload :(#| TMPL_VAR name |#))
 #+end_src
 
-* Examples
+** Examples
 
 #+begin_src lisp
   ;; Basic example here, see more in package.lisp.
